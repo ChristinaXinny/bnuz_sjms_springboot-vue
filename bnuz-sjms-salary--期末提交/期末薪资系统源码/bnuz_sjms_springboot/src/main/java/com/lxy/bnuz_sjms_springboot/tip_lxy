@@ -1,0 +1,107 @@
+# 一、操作总结
+1. 先写实体类entity----xxx
+2. 写接口----xxxRepository ------- 把sql语句倒入
+3. 写Repository的测试类 ---- xxxRepositoryTest
+4. 写聚合了接口的controller-----xxxHandler ---- 可以在网络上进行调用 写了网络的端口号
+5. 网页进行访问
+
+
+
+
+# 二、类说明
+### 1.xxxRepository
+/**
+ * 这是一个用来写各种sql的语句的类
+ * 其中声明了一个继承自JpaRepository的接口
+ * JpaRepository类里面有许多写好类的sql语句
+ * 这里是为了把接口内部的方法 调用变成自己的
+
+
+
+ */
+
+### 2.xxxHandler
+/*
+提供给外部的接口
+如果在handler里面不去写一个接口
+只能在内部进行调用
+@RestController------ 给暴露给外部的接口
+@RequestMapping("/xxx")
+xxx是端口名字
+http://localhost:8181/receipt
+
+
+内部先声明一个xxxRepository
+然后使用一个方法 把从数据库里搜出来的东西return出去
+方法return出去的东西 有个端口号
+可以进行显示数据
+@GetMapping("/findAll")
+http://localhost:8181/receipt/findAll
+
+  提供网络端口号的地址
+  感觉是用来发布到网站上的
+  内容就是各种搜出来的语句
+
+
+
+*/
+
+
+# 三、关于注解
+### @RestController = @Controller + @ ResponseBody
++ @Controller [该类所在的项目跑起来的过程中，这个类就被实例化 代表该类是充当Controller的作用]
++ @ResponseBody [指该类中所有的API接口返回的数据，甭管你对应的方法返回Map或是其他Object，它会以Json字符串的形式返回给客户端，]
+
+### @GeneratedValue(strategy = GenerationType.IDENTITY)
+自增注解
+
+
+### @RequestBody
+映射 把json格式映射成java对象
+
+
+
+
+
+
+
+
+# 四、错误现象
+
+### 1。userTest中第二个
+##### 错误现象：
+org.hibernate.LazyInitializationException: could not initialize proxy [com.angus.entity.ProductCategory#1] - no Session
+
+##### 在国外的一个网站看到解决方案：
+在出问题的实体类上加@Proxy(lazy = false)
+【见entity的user类  加入了@Proxy(lazy = false)】
+
+源于：
+https://blog.csdn.net/star1210644725/article/details/91040294
+
+
+### 2.查杀端口
+Identify and stop the process that's listening on port 8181 or configure this application to listen on another port.
+
+lsof -i :8181
+kill -9 76471
+```
+liuxinny@ChristinadeMacBook-Pro ~ % lsof -i :8181
+COMMAND     PID     USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+Google    33107 liuxinny   36u  IPv6 0x9c345e137ca6ca79      0t0  TCP localhost:57706->localhost:8181 (CLOSE_WAIT)
+Google    33107 liuxinny   38u  IPv6 0x9c345e1379fb10d9      0t0  TCP localhost:57707->localhost:8181 (CLOSE_WAIT)
+java      76471 liuxinny  115u  IPv6 0x9c345e137e055739      0t0  TCP *:8181 (LISTEN)
+liuxinny@ChristinadeMacBook-Pro ~ % kill -9 76471
+liuxinny@ChristinadeMacBook-Pro ~ % kill -9 33107
+liuxinny@ChristinadeMacBook-Pro ~ % lsof -i :8181
+liuxinny@ChristinadeMacBook-Pro ~ % 
+```
+
+### 3. mysql关键字问题
+[Err] 1064 - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near
+
+改表的字段名8
+
+
+
+
