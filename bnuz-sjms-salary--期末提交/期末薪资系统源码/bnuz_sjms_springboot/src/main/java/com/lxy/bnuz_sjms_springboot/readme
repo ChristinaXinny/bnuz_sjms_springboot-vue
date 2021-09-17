@@ -1,0 +1,53 @@
+
+1. 先写实体类entity----xxx
+2. 写接口----xxxRepository ------- 把sql语句倒入
+3. 写Repository的测试类 ---- xxxRepositoryTest
+4. 写聚合了接口的controller-----xxxHandler ---- 可以在网络上进行调用 写了网络的端口号
+5. 网页进行访问
+
+
+
+
+
+===============xxxRepository
+/**
+ * 这是一个用来写各种sql的语句的类
+ * 其中声明了一个继承自JpaRepository的接口
+ * JpaRepository类里面有许多写好类的sql语句
+ * 这里是为了把接口内部的方法 调用变成自己的
+
+
+
+ */
+
+================= xxxHandler
+/*
+@RestController
+@RequestMapping("/xxx")
+xxx是端口名字
+http://localhost:8181/receipt
+
+
+内部先声明一个xxxRepository
+然后使用一个方法 把从数据库里搜出来的东西return出去
+方法return出去的东西 有个端口号
+可以进行显示数据
+@GetMapping("/findAll")
+http://localhost:8181/receipt/findAll
+
+  提供网络端口号的地址
+  感觉是用来发布到网站上的
+  内容就是各种搜出来的语句
+
+
+
+*/
+
+//@RestController
+// = @Controller [该类所在的项目跑起来的过程中，这个类就被实例化 代表该类是充当Controller的作用]
+// + @ResponseBody [指该类中所有的API接口返回的数据，甭管你对应的方法返回Map或是其他Object，它会以Json字符串的形式返回给客户端，]
+
+
+
+time_card:
+针对

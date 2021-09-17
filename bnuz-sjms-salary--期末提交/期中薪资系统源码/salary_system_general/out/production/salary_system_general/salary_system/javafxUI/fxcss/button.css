@@ -1,0 +1,21 @@
+.menuBox1:hover{
+    -fx-effect: dropshadow(three-pass-box, #7283da, 10.0,0, 0, 0);
+    -fx-cursor: hand;
+}
+.menuBox2:hover{
+    -fx-effect: dropshadow(three-pass-box, #ffc7a1, 10.0,0, 0, 0);
+    -fx-cursor: hand;
+}
+.menuBox3:hover{
+    -fx-effect: dropshadow(three-pass-box, #72b9da, 10.0,0, 0, 0);
+    -fx-cursor: hand;
+}
+.menuBox4:hover{
+    -fx-effect: dropshadow(three-pass-box, #a2e28a, 10.0,0, 0, 0);
+    -fx-cursor: hand;
+}
+.menuBox5:hover{
+    -fx-effect: dropshadow(three-pass-box, #f8adf5, 10.0,0, 0, 0);
+    -fx-cursor: hand;
+}
+
